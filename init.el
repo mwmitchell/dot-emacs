@@ -1,3 +1,6 @@
+;; NOTE: This requires emacs 24
+;; See: https://github.com/technomancy/emacs-starter-kit
+
 (load-file "~/.emacs.d/my-paths.el")
 
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
