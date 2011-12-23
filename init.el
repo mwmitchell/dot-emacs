@@ -76,3 +76,5 @@
 
 (add-hook 'slime-mode-hook 'auto-complete-mode)
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
+
+(eshell)
