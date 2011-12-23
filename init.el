@@ -1,7 +1,14 @@
 ;; NOTE: This requires emacs 24
 ;; See: https://github.com/technomancy/emacs-starter-kit
+;; HOW: symlink your .emacs.d directory to this project directory
 
-(load-file "~/.emacs.d/my-paths.el")
+;; load up a custom user init
+(load-file (concat "~/" (user-login-name) ".el"))
+
+(add-to-list 'load-path
+             (concat (file-name-directory load-file-name) "auto-complete-1.3.1/"))
+(load "auto-complete")
+(auto-complete-mode)
 
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
 
@@ -23,6 +30,8 @@
     starter-kit-eshell
     maxframe
     clojure-mode
+    slime
+    ac-slime
     midje-mode
     color-theme
     color-theme-wombat
@@ -63,3 +72,4 @@
              (define-key clojure-mode-map "\C-c\C-f" 'slime-eval-defun)))
 (add-hook 'clojure-mode-hook
           '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
+
