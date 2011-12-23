@@ -7,8 +7,6 @@
 
 (add-to-list 'load-path
              (concat (file-name-directory load-file-name) "auto-complete-1.3.1/"))
-(load "auto-complete")
-(auto-complete-mode)
 
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
 
@@ -73,3 +71,8 @@
 (add-hook 'clojure-mode-hook
           '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
 
+
+(load "auto-complete")
+
+(add-hook 'slime-mode-hook 'auto-complete-mode)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
