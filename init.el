@@ -46,6 +46,7 @@
 (custom-set-variables
  '(mf-display-padding-height 100)
  '(mf-offset-y 0))
+ '(slime-net-coding-system (quote utf-8-unix)))
 
 ;; color-theme
 (load "color-theme")
