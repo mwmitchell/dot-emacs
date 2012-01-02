@@ -56,7 +56,8 @@
 (color-theme-gruber-darker)
 
 ;; clojure stuff
-(add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
+;; (add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
+
 (defun clojure-mode-untabify ()
  (save-excursion
    (goto-char (point-min))
