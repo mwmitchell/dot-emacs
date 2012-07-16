@@ -32,6 +32,7 @@
     ac-slime
     midje-mode
     color-theme
+    color-theme-sanityinc-solarized
     color-theme-wombat
     color-theme-wombat+
     color-theme-gruber-darker)
@@ -43,20 +44,37 @@
 
 ;; maxframe
 (add-hook 'window-setup-hook 'maximize-frame t)
+
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(mf-display-padding-height 100)
- '(mf-offset-y 0))
+ '(mf-offset-y 0)
  '(slime-net-coding-system (quote utf-8-unix)))
+
+;; TODO: bind this to a command... this shrinks the window down --
+;; useful for getting your window back after unplugging and external
+;; monitor!
+
+;;(set-frame-size (selected-frame) 40 15)
 
 ;; color-theme
 (load "color-theme")
-(load "color-theme-gruber-darker")
-(load "color-theme-wombat")
-(load "color-theme-wombat+")
-(color-theme-gruber-darker)
+;; (load "color-theme-gruber-darker")
+;; (load "color-theme-wombat")
+;;(load "color-theme-wombat+")
+;; (color-theme-gruber-darker)
+;;(load "color-theme-github")
+(load "color-theme-sanityinc-solarized")
 
-;; clojure stuff
-;; (add-hook 'slime-repl-mode-hook 'clojure-mode-font-lock-setup)
+(eval-when-compile
+  (require 'color-theme))
+
+(require 'color-theme)
+(require 'color-theme-sanityinc-solarized)
+(color-theme-sanityinc-solarized-dark)
 
 (defun clojure-mode-untabify ()
  (save-excursion
@@ -67,6 +85,7 @@
    (if (search-forward "\t" nil t)
        (untabify (1- (point)) (point-max))))
  nil)
+
 (add-hook 'clojure-mode-hook
           '(lambda ()
              (define-key clojure-mode-map "\C-c\C-f" 'slime-eval-defun)))
@@ -80,3 +99,28 @@
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 
 (eshell)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;;;;;;;;;;;
+
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-auto-merge-work-directories-length nil
+      ido-create-new-buffer 'always
+      ido-use-filename-at-point 'guess
+      ido-use-virtual-buffers t
+      ido-handle-duplicate-virtual-buffers 2
+      ido-max-prospects 10)
+
+;; Display ido results vertically, rather than horizontally
+(setq ido-decorations (quote ("\n-> " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
+(defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
+(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
