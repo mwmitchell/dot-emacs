@@ -5,8 +5,8 @@
 ;; load up a custom user init
 (load-file (concat "~/" (user-login-name) ".el"))
 
-(add-to-list 'load-path
-             (concat (file-name-directory load-file-name) "auto-complete-1.3.1/"))
+;; (add-to-list 'load-path
+;;              (concat (file-name-directory load-file-name) "auto-complete-1.3.1/"))
 
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
 
@@ -30,15 +30,16 @@
     clojure-mode
     ;;slime
     ;;ac-slime
-	nrepl
-	ac-nrepl
+    nrepl
+    auto-complete
+    ac-nrepl
     midje-mode
     ;;color-theme
     ;;color-theme-sanityinc-solarized
     ;;color-theme-wombat
     ;;color-theme-wombat+
     ;;color-theme-gruber-darker
-	)
+    )
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -100,10 +101,40 @@
 (add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
 (add-hook 'clojure-mode-hook 'paredit-mode)
 
-(load "auto-complete")
+(add-hook 'nrepl-mode-hook 'paredit-mode)
 
-;;(add-hook 'slime-mode-hook 'auto-complete-mode)
-;;(add-hook 'slime-mode-hook 'set-up-slime-ac)
+;;(load "auto-complete")
+
+(add-hook 'clojure-mode-hook 'auto-complete-mode)
+
+;;(add-hook 'nrepl-mode-hook 'auto-complete-mode)
+;;(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+
+(add-hook 'nrepl-interaction-mode-hook
+          'nrepl-turn-on-eldoc-mode)
+(setq nrepl-tab-command 'indent-for-tab-command)
+(setq nrepl-popup-stacktraces nil)
+;; Make C-c C-z switch to the *nrepl* buffer in the current window:
+(add-to-list 'same-window-buffer-names "*nrepl*")
+(add-hook 'nrepl-mode-hook 'subword-mode)
+(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
+
+(require 'ac-nrepl)
+(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+(add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'nrepl-mode))
+
+(defun set-auto-complete-as-completion-at-point-function ()
+  (setq completion-at-point-functions '(auto-complete)))
+(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
+(add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
+(add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
+;;(define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (eshell)
 
