@@ -28,14 +28,17 @@
     starter-kit-eshell
     maxframe
     clojure-mode
-    slime
-    ac-slime
+    ;;slime
+    ;;ac-slime
+	nrepl
+	ac-nrepl
     midje-mode
-    color-theme
-    color-theme-sanityinc-solarized
-    color-theme-wombat
-    color-theme-wombat+
-    color-theme-gruber-darker)
+    ;;color-theme
+    ;;color-theme-sanityinc-solarized
+    ;;color-theme-wombat
+    ;;color-theme-wombat+
+    ;;color-theme-gruber-darker
+	)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -52,7 +55,8 @@
  ;; If there is more than one, they won't work right.
  '(mf-display-padding-height 100)
  '(mf-offset-y 0)
- '(slime-net-coding-system (quote utf-8-unix)))
+ ;;'(slime-net-coding-system (quote utf-8-unix))
+ )
 
 ;; TODO: bind this to a command... this shrinks the window down --
 ;; useful for getting your window back after unplugging and external
@@ -86,17 +90,20 @@
        (untabify (1- (point)) (point-max))))
  nil)
 
-(add-hook 'clojure-mode-hook
-          '(lambda ()
-             (define-key clojure-mode-map "\C-c\C-f" 'slime-eval-defun)))
+;;(add-hook 'clojure-mode-hook
+;;          '(lambda ()
+;;             (define-key clojure-mode-map "\C-c\C-f" 'slime-eval-defun)))
+
 (add-hook 'clojure-mode-hook
           '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
 
+(add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
+(add-hook 'clojure-mode-hook 'paredit-mode)
 
 (load "auto-complete")
 
-(add-hook 'slime-mode-hook 'auto-complete-mode)
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
+;;(add-hook 'slime-mode-hook 'auto-complete-mode)
+;;(add-hook 'slime-mode-hook 'set-up-slime-ac)
 
 (eshell)
 
@@ -106,7 +113,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
+ 
 ;;;;;;;;;;;;
 
 (require 'ido)
