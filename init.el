@@ -16,6 +16,7 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -28,18 +29,10 @@
     starter-kit-eshell
     maxframe
     clojure-mode
-    ;;slime
-    ;;ac-slime
     nrepl
     auto-complete
     ac-nrepl
-    midje-mode
-    ;;color-theme
-    ;;color-theme-sanityinc-solarized
-    ;;color-theme-wombat
-    ;;color-theme-wombat+
-    ;;color-theme-gruber-darker
-    )
+    midje-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -55,9 +48,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(mf-display-padding-height 100)
- '(mf-offset-y 0)
- ;;'(slime-net-coding-system (quote utf-8-unix))
- )
+ '(mf-offset-y 0))
 
 ;; TODO: bind this to a command... this shrinks the window down --
 ;; useful for getting your window back after unplugging and external
@@ -65,21 +56,10 @@
 
 ;;(set-frame-size (selected-frame) 40 15)
 
-;; color-theme
-(load "color-theme")
-;; (load "color-theme-gruber-darker")
-;; (load "color-theme-wombat")
-;;(load "color-theme-wombat+")
-;; (color-theme-gruber-darker)
-;;(load "color-theme-github")
-(load "color-theme-sanityinc-solarized")
-
 (eval-when-compile
   (require 'color-theme))
 
-(require 'color-theme)
-(require 'color-theme-sanityinc-solarized)
-(color-theme-sanityinc-solarized-dark)
+(color-theme-charcoal-black)
 
 (defun clojure-mode-untabify ()
  (save-excursion
@@ -91,10 +71,6 @@
        (untabify (1- (point)) (point-max))))
  nil)
 
-;;(add-hook 'clojure-mode-hook
-;;          '(lambda ()
-;;             (define-key clojure-mode-map "\C-c\C-f" 'slime-eval-defun)))
-
 (add-hook 'clojure-mode-hook
           '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
 
@@ -103,12 +79,7 @@
 
 (add-hook 'nrepl-mode-hook 'paredit-mode)
 
-;;(load "auto-complete")
-
 (add-hook 'clojure-mode-hook 'auto-complete-mode)
-
-;;(add-hook 'nrepl-mode-hook 'auto-complete-mode)
-;;(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
 
 (add-hook 'nrepl-interaction-mode-hook
           'nrepl-turn-on-eldoc-mode)
@@ -132,7 +103,7 @@
 (add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
 (add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
-;;(define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
+;; (define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
