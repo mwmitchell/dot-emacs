@@ -32,7 +32,7 @@
     nrepl
     auto-complete
     ac-nrepl
-    midje-mode
+    ;;midje-mode
     rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
@@ -56,6 +56,9 @@
 ;; monitor!
 
 ;;(set-frame-size (selected-frame) 40 15)
+
+(add-to-list 'load-path             	
+             (concat user-emacs-directory "midje-mode"))
 
 (eval-when-compile
   (require 'color-theme))
