@@ -79,35 +79,47 @@
 
 (add-hook 'nrepl-mode-hook 'paredit-mode)
 
-(add-hook 'clojure-mode-hook 'auto-complete-mode)
+;;(add-hook 'clojure-mode-hook 'auto-complete-mode)
 
-(add-hook 'nrepl-interaction-mode-hook
-          'nrepl-turn-on-eldoc-mode)
-(setq nrepl-tab-command 'indent-for-tab-command)
-(setq nrepl-popup-stacktraces nil)
+;; (add-hook 'nrepl-interaction-mode-hook
+;;           'nrepl-turn-on-eldoc-mode)
+
+;;(setq nrepl-tab-command 'indent-for-tab-command)
+
+;;(setq nrepl-popup-stacktraces nil)
 ;; Make C-c C-z switch to the *nrepl* buffer in the current window:
-(add-to-list 'same-window-buffer-names "*nrepl*")
-(add-hook 'nrepl-mode-hook 'subword-mode)
-(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
 
-(require 'ac-nrepl)
-(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-(add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'nrepl-mode))
+;;(add-to-list 'same-window-buffer-names "*nrepl*")
+;;(add-hook 'nrepl-mode-hook 'subword-mode)
+;;(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
 
-(defun set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions '(auto-complete)))
-(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;;(require 'ac-nrepl)
+;;(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+;;(add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+;; (eval-after-load "auto-complete"
+;;   '(add-to-list 'ac-modes 'nrepl-mode))
 
-(add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
-(add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; (defun set-auto-complete-as-completion-at-point-function ()
+;;   (setq completion-at-point-functions '(auto-complete)))
 
-;; (define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
+;; (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; (add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; (add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
+
+;;;; (define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
+
+(require 'clojure-mode)
+(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+
+(require 'midje-mode)
+(add-hook 'clojure-mode-hook 'midje-mode)
+
+;;(require 'clojure-jump-to-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eshell)
+;;(eshell)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
