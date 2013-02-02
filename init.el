@@ -33,7 +33,8 @@
     auto-complete
     ac-nrepl
     ;;midje-mode
-    rainbow-delimiters)
+    rainbow-delimiters
+    color-theme-monokai)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -63,7 +64,8 @@
 (eval-when-compile
   (require 'color-theme))
 
-(color-theme-charcoal-black)
+;;(color-theme-charcoal-black)
+(color-theme-monokai)
 
 (defun clojure-mode-untabify ()
  (save-excursion
