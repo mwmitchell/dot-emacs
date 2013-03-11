@@ -29,8 +29,9 @@
     starter-kit-eshell
     maxframe
     clojure-mode
-    nrepl
+    ;;nrepl
     auto-complete
+    color-theme
     ac-nrepl
     ;;midje-mode
     rainbow-delimiters
@@ -40,6 +41,12 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;;(require 'auto-complete)
+
+;; (require 'auto-complete-config)
+;; ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+;; (ac-config-default)
 
 ;; maxframe
 (add-hook 'window-setup-hook 'maximize-frame t)
@@ -59,7 +66,14 @@
 ;;(set-frame-size (selected-frame) 40 15)
 
 (add-to-list 'load-path             	
-             (concat user-emacs-directory "midje-mode"))
+             (concat user-emacs-directory "midje-mode")
+             (concat user-emacs-directory "nrepl"))
+
+;; (require 'ac-nrepl)
+;; (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+;;  (add-hook 'clojure-nrepl-mode-hook 'ac-nrepl-setup)
+;; (eval-after-load "auto-complete"
+;;   '(add-to-list 'ac-modes 'nrepl-mode))
 
 (eval-when-compile
   (require 'color-theme))
@@ -78,42 +92,49 @@
  nil)
 
 (add-hook 'clojure-mode-hook
-          '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
+  '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
+
+
+(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+(setq nrepl-hide-special-buffers t)
+(setq nrepl-popup-stacktraces nil)
+(setq nrepl-popup-stacktraces-in-repl t)
+(add-to-list 'same-window-buffer-names "*nrepl*")
 
 (add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
 (add-hook 'clojure-mode-hook 'paredit-mode)
+;;(add-hook 'nrepl-mode-hook 'paredit-mode)
+;;(add-hook 'nrepl-mode-hook 'clojure-mode)
 
-(add-hook 'nrepl-mode-hook 'paredit-mode)
+;; (add-hook 'clojure-mode-hook 'auto-complete-mode)
 
-(add-hook 'clojure-mode-hook 'auto-complete-mode)
+;;;; (add-hook 'nrepl-interaction-mode-hook
+;;;;           'nrepl-turn-on-eldoc-mode)
 
-;; (add-hook 'nrepl-interaction-mode-hook
-;;           'nrepl-turn-on-eldoc-mode)
+;; (setq nrepl-tab-command 'indent-for-tab-command)
 
-(setq nrepl-tab-command 'indent-for-tab-command)
 
-;;(setq nrepl-popup-stacktraces nil)
-;; Make C-c C-z switch to the *nrepl* buffer in the current window:
+;;;; Make C-c C-z switch to the *nrepl* buffer in the current window:
 
-(add-to-list 'same-window-buffer-names "*nrepl*")
-(add-hook 'nrepl-mode-hook 'subword-mode)
-(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
+;; (add-to-list 'same-window-buffer-names "*nrepl*")
+;; (add-hook 'nrepl-mode-hook 'subword-mode)
+;; (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
 
-(require 'ac-nrepl)
-(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+;; (require 'ac-nrepl)
+;; (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
 
-(add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'nrepl-mode))
+;; (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+;; (eval-after-load "auto-complete"
+;;   '(add-to-list 'ac-modes 'nrepl-mode))
 
-(defun set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions '(auto-complete)))
+;; (defun set-auto-complete-as-completion-at-point-function ()
+;;   (setq completion-at-point-functions '(auto-complete)))
 
-(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
-(add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
-(add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; (add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
+;; (add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
-(define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
+;; (define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
 
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
@@ -121,33 +142,33 @@
 (require 'midje-mode)
 (add-hook 'clojure-mode-hook 'midje-mode)
 
-(require 'clojure-jump-to-file)
+;;(require 'clojure-jump-to-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;(eshell)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
  
 ;;;;;;;;;;;;
 
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-auto-merge-work-directories-length nil
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers t
-      ido-handle-duplicate-virtual-buffers 2
-      ido-max-prospects 10)
+;; (require 'ido)
+;; (ido-mode t)
+;; (setq ido-enable-prefix nil
+;;       ido-enable-flex-matching t
+;;       ido-auto-merge-work-directories-length nil
+;;       ido-create-new-buffer 'always
+;;       ido-use-filename-at-point 'guess
+;;       ido-use-virtual-buffers t
+;;       ido-handle-duplicate-virtual-buffers 2
+;;       ido-max-prospects 10)
 
-;; Display ido results vertically, rather than horizontally
-(setq ido-decorations (quote ("\n-> " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-(defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
-(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
+;; ;; Display ido results vertically, rather than horizontally
+;; (setq ido-decorations (quote ("\n-> " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
+;; (defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
+;; (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
