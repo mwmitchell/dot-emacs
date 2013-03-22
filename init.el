@@ -72,10 +72,8 @@
              (concat user-emacs-directory "nrepl"))
 
 (require 'nrepl)
-;;(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-;;(add-to-list 'same-window-buffer-names "*nrepl*")
-;;(add-hook 'nrepl-mode-hook 'paredit-mode)
-;;(add-hook 'nrepl-mode-hook 'clojure-mode)
+(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+(add-to-list 'same-window-buffer-names "*nrepl*")
 
 ;; CLOJURE
 (require 'clojure-mode)
@@ -105,6 +103,10 @@
 
 (eval-when-compile
   (require 'color-theme))
+
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;;(color-theme-charcoal-black)
 (color-theme-monokai)
