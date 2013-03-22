@@ -16,7 +16,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
-
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -24,9 +25,9 @@
 
 (defvar my-packages
   '(starter-kit
-    starter-kit-ruby
+    ;;starter-kit-ruby
     starter-kit-lisp
-    starter-kit-eshell
+    ;;starter-kit-eshell
     maxframe
     clojure-mode
     ;;nrepl
@@ -65,22 +66,19 @@
 
 ;;(set-frame-size (selected-frame) 40 15)
 
+;; NREPL
 (add-to-list 'load-path             	
              (concat user-emacs-directory "midje-mode")
              (concat user-emacs-directory "nrepl"))
 
-;; (require 'ac-nrepl)
-;; (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-;;  (add-hook 'clojure-nrepl-mode-hook 'ac-nrepl-setup)
-;; (eval-after-load "auto-complete"
-;;   '(add-to-list 'ac-modes 'nrepl-mode))
+(require 'nrepl)
+;;(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+;;(add-to-list 'same-window-buffer-names "*nrepl*")
+;;(add-hook 'nrepl-mode-hook 'paredit-mode)
+;;(add-hook 'nrepl-mode-hook 'clojure-mode)
 
-(eval-when-compile
-  (require 'color-theme))
-
-;;(color-theme-charcoal-black)
-(color-theme-monokai)
-
+;; CLOJURE
+(require 'clojure-mode)
 (defun clojure-mode-untabify ()
  (save-excursion
    (goto-char (point-min))
@@ -94,81 +92,19 @@
 (add-hook 'clojure-mode-hook
   '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
 
-
-(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-(setq nrepl-hide-special-buffers t)
-(setq nrepl-popup-stacktraces nil)
-(setq nrepl-popup-stacktraces-in-repl t)
-(add-to-list 'same-window-buffer-names "*nrepl*")
-
-(add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
+;;nrepl-enable-on-existing-buffers
+;;(add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
 (add-hook 'clojure-mode-hook 'paredit-mode)
-;;(add-hook 'nrepl-mode-hook 'paredit-mode)
-;;(add-hook 'nrepl-mode-hook 'clojure-mode)
-
-;; (add-hook 'clojure-mode-hook 'auto-complete-mode)
-
-;;;; (add-hook 'nrepl-interaction-mode-hook
-;;;;           'nrepl-turn-on-eldoc-mode)
-
-;; (setq nrepl-tab-command 'indent-for-tab-command)
-
-
-;;;; Make C-c C-z switch to the *nrepl* buffer in the current window:
-
-;; (add-to-list 'same-window-buffer-names "*nrepl*")
-;; (add-hook 'nrepl-mode-hook 'subword-mode)
-;; (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
-
-;; (require 'ac-nrepl)
-;; (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-
-;; (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-;; (eval-after-load "auto-complete"
-;;   '(add-to-list 'ac-modes 'nrepl-mode))
-
-;; (defun set-auto-complete-as-completion-at-point-function ()
-;;   (setq completion-at-point-functions '(auto-complete)))
-
-;; (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
-;; (add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
-;; (add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
-
-;; (define-key nrepl-interaction-mode-map (kbd "C-c C-d") 'ac-nrepl-popup-doc)
-
-(require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 
+;; MIDJE
 (require 'midje-mode)
 (add-hook 'clojure-mode-hook 'midje-mode)
 
-;;(require 'clojure-jump-to-file)
+;; (require 'clojure-jump-to-file)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(eval-when-compile
+  (require 'color-theme))
 
-;;(eshell)
-
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  )
- 
-;;;;;;;;;;;;
-
-;; (require 'ido)
-;; (ido-mode t)
-;; (setq ido-enable-prefix nil
-;;       ido-enable-flex-matching t
-;;       ido-auto-merge-work-directories-length nil
-;;       ido-create-new-buffer 'always
-;;       ido-use-filename-at-point 'guess
-;;       ido-use-virtual-buffers t
-;;       ido-handle-duplicate-virtual-buffers 2
-;;       ido-max-prospects 10)
-
-;; ;; Display ido results vertically, rather than horizontally
-;; (setq ido-decorations (quote ("\n-> " "" "\n " "\n ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-;; (defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
-;; (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
+;;(color-theme-charcoal-black)
+(color-theme-monokai)
