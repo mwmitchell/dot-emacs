@@ -109,4 +109,7 @@
 (ac-config-default)
 
 ;;(color-theme-charcoal-black)
-(color-theme-monokai)
+;;(color-theme-monokai)
+(require 'color-theme-github)
+(color-theme-github)
+
