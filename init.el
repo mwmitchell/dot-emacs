@@ -36,7 +36,8 @@
     ac-nrepl
     ;;midje-mode
     rainbow-delimiters
-    color-theme-monokai)
+    color-theme-monokai
+    color-theme-github)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
