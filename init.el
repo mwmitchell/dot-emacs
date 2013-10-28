@@ -53,13 +53,18 @@
 ;; maxframe
 (add-hook 'window-setup-hook 'maximize-frame t)
 
+;; formats a clojure function doc string while keeping the binding
+;;vector on a new line.
+;;clojure-fill-docstring
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(mf-display-padding-height 105)
- '(mf-offset-y 0))
+ '(mf-offset-y 0)
+ '(send-mail-function nil))
 
 ;; TODO: bind this to a command... this shrinks the window down --
 ;; useful for getting your window back after unplugging and external
@@ -100,8 +105,6 @@
 (require 'midje-mode)
 (add-hook 'clojure-mode-hook 'midje-mode)
 
-;; (require 'clojure-jump-to-file)
-
 (eval-when-compile
   (require 'color-theme))
 
@@ -114,3 +117,7 @@
 (require 'color-theme-github)
 (color-theme-github)
 
+;; http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
+
+(setq js-indent-level 2)
+;;(setq c-basic-offset 2)
