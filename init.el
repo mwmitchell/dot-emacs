@@ -63,15 +63,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mf-display-padding-height 105)
- '(mf-offset-y 0)
+ '(mf-display-padding-height 150)
+ ;;'(mf-offset-y 0)
  '(send-mail-function nil))
 
 ;; TODO: bind this to a command... this shrinks the window down --
 ;; useful for getting your window back after unplugging and external
 ;; monitor!
 
-;;(set-frame-size (selected-frame) 40 15)
+(set-frame-size (selected-frame) 189 55)
 
 (add-to-list 'load-path             	
              (concat user-emacs-directory "midje-mode"))
