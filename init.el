@@ -96,8 +96,8 @@
 
 (require 'cider)
 (setq cider-repl-popup-stacktraces t)
-(setq cider-popup-stacktraces nil)
-;;(setq cider-auto-select-error-buffer nil)
+(setq cider-popup-stacktraces t)
+(setq cider-auto-select-error-buffer nil)
 
 ;; MIDJE
 (require 'midje-mode)
