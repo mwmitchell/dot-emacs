@@ -4,3 +4,7 @@ ac-comphist.dat
 backups
 elpa
 places
+
+/auto-save-list
+/eshell
+/url/cookies

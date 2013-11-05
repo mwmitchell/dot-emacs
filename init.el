@@ -30,10 +30,11 @@
     ;;starter-kit-eshell
     maxframe
     clojure-mode
-    ;;nrepl
     auto-complete
     color-theme
     ac-nrepl
+    cider
+    ;;smartparens
     ;;midje-mode
     rainbow-delimiters
     color-theme-monokai
@@ -72,14 +73,8 @@
 
 ;;(set-frame-size (selected-frame) 40 15)
 
-;; NREPL
 (add-to-list 'load-path             	
-             (concat user-emacs-directory "midje-mode")
-             (concat user-emacs-directory "nrepl"))
-
-(require 'nrepl)
-(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
-(add-to-list 'same-window-buffer-names "*nrepl*")
+             (concat user-emacs-directory "midje-mode"))
 
 ;; CLOJURE
 (require 'clojure-mode)
@@ -96,14 +91,19 @@
 (add-hook 'clojure-mode-hook
   '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
 
-;;nrepl-enable-on-existing-buffers
-;;(add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+
+(require 'cider)
+(setq cider-repl-popup-stacktraces t)
+(setq cider-popup-stacktraces nil)
+;;(setq cider-auto-select-error-buffer nil)
 
 ;; MIDJE
 (require 'midje-mode)
 (add-hook 'clojure-mode-hook 'midje-mode)
+
+(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 
 (eval-when-compile
   (require 'color-theme))
@@ -113,11 +113,10 @@
 (ac-config-default)
 
 ;;(color-theme-charcoal-black)
-;;(color-theme-monokai)
-(require 'color-theme-github)
-(color-theme-github)
+(color-theme-monokai)
+;;(require 'color-theme-github)
+;;(color-theme-github)
 
 ;; http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
-
 (setq js-indent-level 2)
 ;;(setq c-basic-offset 2)

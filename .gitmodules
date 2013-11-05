@@ -1,6 +1,3 @@
 [submodule "midje-mode"]
 	path = midje-mode
 	url = git://github.com/dnaumov/midje-mode.git
-[submodule "tools.nrepl"]
-	path = tools.nrepl
-	url = git://github.com/clojure/tools.nrepl.git
