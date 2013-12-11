@@ -5,19 +5,26 @@
 ;; load up a custom user init
 (load-file (concat "~/" (user-login-name) ".el"))
 
-;; (add-to-list 'load-path
-;;              (concat (file-name-directory load-file-name) "auto-complete-1.3.1/"))
+;;(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
 
-(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
+;;(set-face-attribute 'default nil :height 115)
+;;(set-fontset-font "Courier New-10")
+;;(set-frame-parameter nil 'font "Courier New-15")
+;;(set-frame-parameter nil 'font "Arial Unicode MS-12")
+;;(set-frame-parameter nil 'font "Unifont-12")
+(set-frame-parameter nil 'font "FixedsysTTF-12")
+;;(set-frame-parameter nil 'font "Code2000-12")
+;;(set-frame-parameter nil 'font "Lucida Sans Unicode-11")
 
 ;; show line nums
-(global-linum-mode 1)
+;;(global-linum-mode 1)
 
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
+
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -46,12 +53,6 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-;;(require 'auto-complete)
-
-;; (require 'auto-complete-config)
-;; ;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
-;; (ac-config-default)
-
 ;; maxframe
 (add-hook 'window-setup-hook 'maximize-frame t)
 
@@ -74,23 +75,23 @@
 
 (set-frame-size (selected-frame) 189 55)
 
-(add-to-list 'load-path             	
+(add-to-list 'load-path
              (concat user-emacs-directory "midje-mode"))
 
 ;; CLOJURE
 (require 'clojure-mode)
 (defun clojure-mode-untabify ()
- (save-excursion
-   (goto-char (point-min))
-   (while (re-search-forward "[ \t]+$" nil t)
-     (delete-region (match-beginning 0) (match-end 0)))
-   (goto-char (point-min))
-   (if (search-forward "\t" nil t)
-       (untabify (1- (point)) (point-max))))
- nil)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "[ \t]+$" nil t)
+      (delete-region (match-beginning 0) (match-end 0)))
+    (goto-char (point-min))
+    (if (search-forward "\t" nil t)
+        (untabify (1- (point)) (point-max))))
+  nil)
 
 (add-hook 'clojure-mode-hook
-  '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
+          '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
 
 (add-hook 'clojure-mode-hook 'paredit-mode)
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
