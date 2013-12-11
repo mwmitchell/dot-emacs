@@ -38,7 +38,8 @@
     ;;midje-mode
     rainbow-delimiters
     color-theme-monokai
-    color-theme-github)
+    color-theme-github
+    color-theme-cobalt)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -112,10 +113,10 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-;;(color-theme-charcoal-black)
-(color-theme-monokai)
 ;;(require 'color-theme-github)
 ;;(color-theme-github)
+
+(color-theme-cobalt)
 
 ;; http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
 (setq js-indent-level 2)
