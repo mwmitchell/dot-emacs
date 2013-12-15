@@ -12,23 +12,26 @@
 ;;(set-frame-parameter nil 'font "Courier New-15")
 ;;(set-frame-parameter nil 'font "Arial Unicode MS-12")
 ;;(set-frame-parameter nil 'font "Unifont-12")
+
 (set-frame-parameter nil 'font "FixedsysTTF-12")
+
 ;;(set-frame-parameter nil 'font "Code2000-12")
 ;;(set-frame-parameter nil 'font "Lucida Sans Unicode-11")
 
 ;; show line nums
-;;(global-linum-mode 1)
+(global-linum-mode 1)
 
 (require 'package)
+
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+            '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
+            '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (package-initialize)
 
 (when (not package-archive-contents)
-  (package-refresh-contents))
+ (package-refresh-contents))
 
 (defvar my-packages
   '(starter-kit
@@ -41,9 +44,10 @@
     color-theme
     ac-nrepl
     cider
+    auto-complete
     ;;smartparens
     ;;midje-mode
-    rainbow-delimiters
+    ;;rainbow-delimiters
     color-theme-monokai
     color-theme-github
     color-theme-cobalt)
@@ -54,26 +58,22 @@
     (package-install p)))
 
 ;; maxframe
-(add-hook 'window-setup-hook 'maximize-frame t)
+;;(add-hook 'window-setup-hook 'maximize-frame t)
 
 ;; formats a clojure function doc string while keeping the binding
 ;;vector on a new line.
 ;;clojure-fill-docstring
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(mf-display-padding-height 150)
- ;;'(mf-offset-y 0)
+ '(mf-offset-y 0)
  '(send-mail-function nil))
 
 ;; TODO: bind this to a command... this shrinks the window down --
 ;; useful for getting your window back after unplugging and external
 ;; monitor!
 
-(set-frame-size (selected-frame) 189 55)
+;;(set-frame-size (selected-frame) 189 55)
 
 (add-to-list 'load-path
              (concat user-emacs-directory "midje-mode"))
@@ -81,14 +81,14 @@
 ;; CLOJURE
 (require 'clojure-mode)
 (defun clojure-mode-untabify ()
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward "[ \t]+$" nil t)
-      (delete-region (match-beginning 0) (match-end 0)))
-    (goto-char (point-min))
-    (if (search-forward "\t" nil t)
-        (untabify (1- (point)) (point-max))))
-  nil)
+ (save-excursion
+   (goto-char (point-min))
+   (while (re-search-forward "[ \t]+$" nil t)
+     (delete-region (match-beginning 0) (match-end 0)))
+   (goto-char (point-min))
+   (if (search-forward "\t" nil t)
+       (untabify (1- (point)) (point-max))))
+ nil)
 
 (add-hook 'clojure-mode-hook
           '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
@@ -101,11 +101,14 @@
 (setq cider-popup-stacktraces t)
 (setq cider-auto-select-error-buffer nil)
 
-;; MIDJE
+;;MIDJE
 (require 'midje-mode)
 (add-hook 'clojure-mode-hook 'midje-mode)
 
-(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+;; http://www.emacswiki.org/emacs/EmacsForMacOS
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 (eval-when-compile
   (require 'color-theme))
@@ -114,10 +117,16 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(color-theme-cobalt)
+
 ;;(require 'color-theme-github)
 ;;(color-theme-github)
 
-(color-theme-cobalt)
+;;(require 'color-theme-solarized)
+;;(color-theme-solarized )
+
+;;(require 'color-theme-blackboard)
+;;(color-theme-blackboard)
 
 ;; http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
 (setq js-indent-level 2)
