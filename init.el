@@ -3,7 +3,7 @@
 ;; HOW: symlink your .emacs.d directory to this project directory
 
 ;; load up a custom user init
-(load-file (concat "~/" (user-login-name) ".el"))
+;;(load-file (concat "~/" (user-login-name) ".el"))
 
 ;;(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
 

@@ -1,3 +1,0 @@
-[submodule "midje-mode"]
-	path = midje-mode
-	url = git://github.com/dnaumov/midje-mode.git
