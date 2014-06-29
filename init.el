@@ -46,7 +46,6 @@
     cider
     auto-complete
     ;;smartparens
-    ;;midje-mode
     ;;rainbow-delimiters
     color-theme-monokai
     color-theme-github
@@ -75,9 +74,6 @@
 
 ;;(set-frame-size (selected-frame) 189 55)
 
-(add-to-list 'load-path
-             (concat user-emacs-directory "midje-mode"))
-
 ;; CLOJURE
 (require 'clojure-mode)
 (defun clojure-mode-untabify ()
@@ -100,10 +96,6 @@
 (setq cider-repl-popup-stacktraces t)
 (setq cider-popup-stacktraces t)
 (setq cider-auto-select-error-buffer nil)
-
-;;MIDJE
-(require 'midje-mode)
-(add-hook 'clojure-mode-hook 'midje-mode)
 
 ;; http://www.emacswiki.org/emacs/EmacsForMacOS
 (set-terminal-coding-system 'utf-8)
