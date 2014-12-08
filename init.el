@@ -1,3 +1,4 @@
+
 ;; NOTE: This requires emacs 24
 ;; See: https://github.com/technomancy/emacs-starter-kit
 ;; HOW: symlink your .emacs.d directory to this project directory
@@ -13,7 +14,9 @@
 ;;(set-frame-parameter nil 'font "Arial Unicode MS-12")
 ;;(set-frame-parameter nil 'font "Unifont-12")
 
-(set-frame-parameter nil 'font "FixedsysTTF-12")
+(set-face-attribute 'default nil :height 160)
+;;(set-frame-parameter nil 'font "FixedsysTTF-14")
+(set-frame-size (selected-frame) 250 68)
 
 ;;(set-frame-parameter nil 'font "Code2000-12")
 ;;(set-frame-parameter nil 'font "Lucida Sans Unicode-11")
@@ -72,6 +75,7 @@
 ;; useful for getting your window back after unplugging and external
 ;; monitor!
 
+
 ;;(set-frame-size (selected-frame) 189 55)
 
 ;; CLOJURE
@@ -109,7 +113,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-(color-theme-cobalt)
+;;(color-theme-cobalt)
 
 ;;(require 'color-theme-github)
 ;;(color-theme-github)
@@ -120,6 +124,73 @@
 ;;(require 'color-theme-blackboard)
 ;;(color-theme-blackboard)
 
+(require 'color-theme-monokai)
+(color-theme-monokai)
+
 ;; http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
 (setq js-indent-level 2)
 ;;(setq c-basic-offset 2)
+
+(let ((path (shell-command-to-string ". ~/.bashrc; echo -n $PATH")))
+  (setenv "PATH" path)
+  (setq exec-path 
+        (append
+         (split-string-and-unquote path ":")
+         exec-path)))
+
+
+(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
+
+(add-hook 'js-mode-hook 'js2-minor-mode)
+(add-hook 'js2-mode-hook 'ac-js2-mode)
+
+(setq js2-highlight-level 3)
+
+(defconst web-beautify-args '("-f" "-" "-s" "2" "-j"))
+
+;; (require 'web-beautify) ;; Not necessary if using ELPA package
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+(eval-after-load 'js
+  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
+
+(eval-after-load 'json-mode
+  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+
+(eval-after-load 'sgml-mode
+  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+
+(eval-after-load 'css-mode
+  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+
+
+;; (defgroup js-beautify nil
+;;   "Use jsbeautify to beautify some js"
+;;   :group 'editing)
+
+;; (defcustom js-beautify-args "--indent-size=2 --space-in-paren=true --space-in-empty-paren=false --keep-array-indentation=true"
+;;   "Arguments to pass to jsbeautify script"
+;;   :type '(string)
+;;   :group 'js-beautify)
+
+;; (defcustom js-beautify-path "/usr/local/bin/js-beautify"
+;;   "Path to jsbeautifier python file"
+;;   :type '(string)
+;;   :group 'js-beautify)
+
+;; (defun js-beautify ()
+;;   "Beautify a region of javascript using the code from jsbeautify.org"
+;;   (interactive)
+;;   (let ((orig-point (point)))
+;;     (unless (mark)
+;;       (mark-defun))
+;;     (shell-command-on-region (point)
+;;                              (mark)
+;;                              (concat js-beautify-path
+;;                                      " - "
+;;                                      js-beautify-args)
+;;                              nil t)
+;;     (goto-char orig-point)))
+
+;; (provide 'js-beautify)
