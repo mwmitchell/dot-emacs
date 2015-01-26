@@ -16,7 +16,7 @@
 
 (set-face-attribute 'default nil :height 160)
 ;;(set-frame-parameter nil 'font "FixedsysTTF-14")
-(set-frame-size (selected-frame) 250 68)
+(set-frame-size (selected-frame) 140 42)
 
 ;;(set-frame-parameter nil 'font "Code2000-12")
 ;;(set-frame-parameter nil 'font "Lucida Sans Unicode-11")
@@ -109,9 +109,6 @@
 (eval-when-compile
   (require 'color-theme))
 
-(require 'auto-complete)
-(require 'auto-complete-config)
-(ac-config-default)
 
 ;;(color-theme-cobalt)
 
@@ -138,7 +135,6 @@
          (split-string-and-unquote path ":")
          exec-path)))
 
-
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 
 (add-hook 'js-mode-hook 'js2-minor-mode)
@@ -146,7 +142,6 @@
 
 (setq js2-highlight-level 3)
 
-(defconst web-beautify-args '("-f" "-" "-s" "2" "-j"))
 
 ;; (require 'web-beautify) ;; Not necessary if using ELPA package
 (eval-after-load 'js2-mode
@@ -163,6 +158,35 @@
 
 (eval-after-load 'css-mode
   '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+
+;; (eval-after-load 'web-beautify
+;;   '(defconst web-beautify-args '("-f" "-" "-s" "2" "-j" "true")))
+
+(defconst web-beautify-args '("-f" "-" "-s" "2" "-j" "true"))
+
+;;
+
+;;; yasnippet
+;;; should be loaded before auto complete so that they can work together
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;;; auto complete mod
+;;; should be loaded after yasnippet so that they can work together
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+;;; set the trigger key so that it can work together with yasnippet on tab key,
+;;; if the word exists in yasnippet, pressing tab will cause yasnippet to
+;;; activate, otherwise, auto-complete will
+(ac-set-trigger-key "TAB")
+(ac-set-trigger-key "<tab>")
+
+;;;
+
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
 
 
 ;; (defgroup js-beautify nil
