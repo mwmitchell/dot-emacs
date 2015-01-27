@@ -1,4 +1,3 @@
-
 ;; NOTE: This requires emacs 24
 ;; See: https://github.com/technomancy/emacs-starter-kit
 ;; HOW: symlink your .emacs.d directory to this project directory
@@ -6,20 +5,8 @@
 ;; load up a custom user init
 ;;(load-file (concat "~/" (user-login-name) ".el"))
 
-;;(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
-
-;;(set-face-attribute 'default nil :height 115)
-;;(set-fontset-font "Courier New-10")
-;;(set-frame-parameter nil 'font "Courier New-15")
-;;(set-frame-parameter nil 'font "Arial Unicode MS-12")
-;;(set-frame-parameter nil 'font "Unifont-12")
-
 (set-face-attribute 'default nil :height 160)
-;;(set-frame-parameter nil 'font "FixedsysTTF-14")
-(set-frame-size (selected-frame) 140 42)
-
-;;(set-frame-parameter nil 'font "Code2000-12")
-;;(set-frame-parameter nil 'font "Lucida Sans Unicode-11")
+(set-frame-size (selected-frame) 125 40)
 
 ;; show line nums
 (global-linum-mode 1)
@@ -27,14 +14,14 @@
 (require 'package)
 
 (add-to-list 'package-archives
-            '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
-            '("melpa" . "http://melpa.milkbox.net/packages/"))
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (package-initialize)
 
 (when (not package-archive-contents)
- (package-refresh-contents))
+  (package-refresh-contents))
 
 (defvar my-packages
   '(starter-kit
@@ -48,6 +35,7 @@
     ac-nrepl
     cider
     auto-complete
+    yasnippet
     ;;smartparens
     ;;rainbow-delimiters
     color-theme-monokai
@@ -63,8 +51,8 @@
 ;;(add-hook 'window-setup-hook 'maximize-frame t)
 
 ;; formats a clojure function doc string while keeping the binding
-;;vector on a new line.
-;;clojure-fill-docstring
+;; vector on a new line.
+;; clojure-fill-docstring
 
 (custom-set-variables
  '(mf-display-padding-height 150)
@@ -75,20 +63,19 @@
 ;; useful for getting your window back after unplugging and external
 ;; monitor!
 
-
 ;;(set-frame-size (selected-frame) 189 55)
 
 ;; CLOJURE
 (require 'clojure-mode)
 (defun clojure-mode-untabify ()
- (save-excursion
-   (goto-char (point-min))
-   (while (re-search-forward "[ \t]+$" nil t)
-     (delete-region (match-beginning 0) (match-end 0)))
-   (goto-char (point-min))
-   (if (search-forward "\t" nil t)
-       (untabify (1- (point)) (point-max))))
- nil)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "[ \t]+$" nil t)
+      (delete-region (match-beginning 0) (match-end 0)))
+    (goto-char (point-min))
+    (if (search-forward "\t" nil t)
+        (untabify (1- (point)) (point-max))))
+  nil)
 
 (add-hook 'clojure-mode-hook
           '(lambda () (add-hook 'write-contents-hooks 'clojure-mode-untabify nil t)))
@@ -108,7 +95,6 @@
 
 (eval-when-compile
   (require 'color-theme))
-
 
 ;;(color-theme-cobalt)
 
@@ -136,12 +122,10 @@
          exec-path)))
 
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
-
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 
 (setq js2-highlight-level 3)
-
 
 ;; (require 'web-beautify) ;; Not necessary if using ELPA package
 (eval-after-load 'js2-mode
@@ -168,8 +152,8 @@
 
 ;;; yasnippet
 ;;; should be loaded before auto complete so that they can work together
-(require 'yasnippet)
-(yas-global-mode 1)
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
 
 ;;; auto complete mod
 ;;; should be loaded after yasnippet so that they can work together
