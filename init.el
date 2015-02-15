@@ -106,6 +106,9 @@
 ;;
 ;;
 
+(add-hook 'clojure-mode-hook
+          '(lambda () (auto-complete-mode)))
+
 ;; ;; http://www.emacswiki.org/emacs/EmacsForMacOS
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
