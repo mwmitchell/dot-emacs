@@ -47,7 +47,7 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-;; ;; CLOJURE
+;; Clojure
 (require 'clojure-mode)
 (defun clojure-mode-untabify ()
   (save-excursion
@@ -66,7 +66,8 @@
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
 
 ;; https://github.com/clojure-emacs/cider#icomplete
-(require 'icomplete)
+;; seems to work, but fugly
+;; (require 'icomplete)
 
 (ido-everywhere)
 (ido-ubiquitous)
@@ -76,11 +77,12 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (global-company-mode)
 
+(setq cider-repl-popup-stacktraces t)
+(setq cider-popup-stacktraces t)
 (setq cider-auto-select-error-buffer nil)
-
-;; (setq cider-repl-popup-stacktraces t)
-;; (setq cider-popup-stacktraces t)
-;; (setq cider-auto-select-error-buffer nil)
+(add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
+(add-hook 'cider-mode-hook #'eldoc-mode)
+(setq cider-test-show-report-on-success t)
 
 ;;
 ;; https://github.com/clojure-emacs/ac-cider
@@ -97,10 +99,14 @@
 (defun set-auto-complete-as-completion-at-point-function ()
   (setq completion-at-point-functions '(auto-complete)))
 
+;; (setq ac-quick-help-delay 0.2)
+
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
-(add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
 ;;
 ;;
+
+;;
+(load "auto-complete")
 ;;
 
 (add-hook 'clojure-mode-hook 'auto-complete-mode)
@@ -112,7 +118,7 @@
 
 ;; ;; http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
 (setq js-indent-level 2)
-;; ;;(setq c-basic-offset 2)
+(setq c-basic-offset 2)
 
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 ;; (add-hook 'js-mode-hook 'js2-minor-mode)
@@ -120,5 +126,7 @@
 
 ;; (setq js2-highlight-level 3)
 
-;; (add-hook 'cider-mode-hook #'eldoc-mode)
-;; (setq cider-test-show-report-on-success t)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
