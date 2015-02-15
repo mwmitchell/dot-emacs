@@ -2,8 +2,8 @@
 ;; See: https://github.com/technomancy/emacs-starter-kit
 ;; HOW: symlink your .emacs.d directory to this project directory
 
-(set-face-attribute 'default nil :height 160)
-(set-frame-size (selected-frame) 125 40)
+;;(set-face-attribute 'default nil :height 160)
+;;(set-frame-size (selected-frame) 125 40)
 
 ;; show line nums
 (global-linum-mode 1)
