@@ -2,9 +2,6 @@
 ;; See: https://github.com/technomancy/emacs-starter-kit
 ;; HOW: symlink your .emacs.d directory to this project directory
 
-;; load up a custom user init
-;;(load-file (concat "~/" (user-login-name) ".el"))
-
 (set-face-attribute 'default nil :height 160)
 (set-frame-size (selected-frame) 125 40)
 
@@ -106,8 +103,7 @@
 ;;
 ;;
 
-(add-hook 'clojure-mode-hook
-          '(lambda () (auto-complete-mode)))
+(add-hook 'clojure-mode-hook 'auto-complete-mode)
 
 ;; ;; http://www.emacswiki.org/emacs/EmacsForMacOS
 (set-terminal-coding-system 'utf-8)
