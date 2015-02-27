@@ -1,6 +1,11 @@
 ;; NOTE: This requires emacs 24
-;; See: https://github.com/technomancy/emacs-starter-kit
-;; HOW: symlink your .emacs.d directory to this project directory
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lib/color-themes/noctilux-theme")
+(load-theme 'noctilux t)
+
+;; (set-face-attribute 'default nil :height 160)
+
+(set-default-font "Courier New-18")
 
 ;;(set-face-attribute 'default nil :height 160)
 ;;(set-frame-size (selected-frame) 125 40)
@@ -12,8 +17,12 @@
 
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+;; (add-to-list 'package-archives
+;;              '("melpa" . "http://melpa.milkbox.net/packages/"))
+
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -31,6 +40,10 @@
     paredit
     maxframe
     clojure-mode
+    clojure-mode-extra-font-locking
+    projectile
+    rainbow-delimiters
+    tagedit
     popup
     auto-complete
     color-theme
@@ -42,6 +55,9 @@
     color-theme-github
     color-theme-cobalt)
   "A list of packages to ensure are installed at launch.")
+
+(if (eq system-type 'darwin)
+    (add-to-list 'my-packages 'exec-path-from-shell))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -77,12 +93,18 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (global-company-mode)
 
+(setq cider-show-error-buffer t)
 (setq cider-repl-popup-stacktraces t)
 (setq cider-popup-stacktraces t)
 (setq cider-auto-select-error-buffer nil)
-(add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
+(add-hook 'cider-mode-hook
+          'set-auto-complete-as-completion-at-point-function)
 (add-hook 'cider-mode-hook #'eldoc-mode)
 (setq cider-test-show-report-on-success t)
+
+(setq cider-auto-jump-to-error nil)
+
+(setq cider-auto-select-test-report-bufferrepl nil)
 
 ;;
 ;; https://github.com/clojure-emacs/ac-cider
