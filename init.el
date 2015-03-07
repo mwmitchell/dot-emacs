@@ -1,4 +1,18 @@
 ;; NOTE: This requires emacs 24
+(setq inhibit-splash-screen t)
+
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell.
+
+This is particularly useful under Mac OSX, where GUI apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(set-exec-path-from-shell-PATH)
+
+(add-to-list 'load-path "~/.emacs.d/lib/web-beautify")
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/lib/color-themes/noctilux-theme")
 (load-theme 'noctilux t)
@@ -9,6 +23,10 @@
 
 ;;(set-face-attribute 'default nil :height 160)
 ;;(set-frame-size (selected-frame) 125 40)
+
+;;(set-face-attribute 'font-lock-string-face nil :foreground "#ABC")
+(set-face-attribute 'font-lock-comment-face nil :foreground "#888")
+(set-face-attribute 'font-lock-doc-face nil :foreground "#DBB")
 
 ;; show line nums
 (global-linum-mode 1)
@@ -152,3 +170,17 @@
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
+
+
+(require 'web-beautify) ;; Not necessary if using ELPA package
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+(eval-after-load 'js
+  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'json-mode
+  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'sgml-mode
+  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+(eval-after-load 'css-mode
+  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
