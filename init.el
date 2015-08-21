@@ -39,8 +39,10 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 
-;;(add-to-list 'package-archives
-;;             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+            '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+(add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 
 (package-initialize)
 
@@ -69,9 +71,10 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     cider
     auto-complete
     yasnippet
-    color-theme-monokai
-    color-theme-github
-    color-theme-cobalt)
+    ;;color-theme-monokai
+    ;;color-theme-github
+    ;;color-theme-cobalt
+    )
   "A list of packages to ensure are installed at launch.")
 
 (if (eq system-type 'darwin)
