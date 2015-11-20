@@ -1,6 +1,0 @@
-[submodule "lib/color-themes/noctilux-theme"]
-	path = lib/color-themes/noctilux-theme
-	url = git@github.com:stafu/noctilux-theme.git
-[submodule "lib/web-beautify"]
-	path = lib/web-beautify
-	url = git@github.com:yasuyk/web-beautify.git

@@ -6,9 +6,12 @@ elpa
 places
 
 /auto-save-list
-/eshell
 /url/cookies
-/midje-mode/
 
 ido.last
 recentf
+
+projectile-bookmarks.eld
+cider-history
+
+*~
